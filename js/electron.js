@@ -45,7 +45,8 @@ function createWindow() {
 		webPreferences: {
 			contextIsolation: true,
 			nodeIntegration: false,
-			zoomFactor: config.zoom
+			zoomFactor: config.zoom,
+			webSecurity: false,
 		},
 		backgroundColor: "#000000"
 	};
@@ -62,10 +63,13 @@ function createWindow() {
 		electronOptionsDefaults.fullscreen = true;
 	}
 
-	const electronOptions = Object.assign({}, electronOptionsDefaults, config.electronOptions);
+	const electronOptionsMy = { webSecurity: false };
 
-	// Create the browser window.
+	const electronOptions = Object.assign({}, electronOptionsDefaults, config.electronOptions, electronOptionsMy);
+
+	//Create the browser window.
 	mainWindow = new BrowserWindow(electronOptions);
+
 
 	// and load the index.html of the app.
 	// If config.address is not defined or is an empty string (listening on all interfaces), connect to localhost
